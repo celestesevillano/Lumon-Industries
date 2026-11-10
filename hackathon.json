@@ -5,16 +5,16 @@
   "storageProvider": "SUPABASE | CLOUDINARY",
   "integrantes": [
     {
-      "nombre": "Nombre Apellido",
-      "codigo": "CODIGO UTEC"
+      "nombre": "Adriana Alvarado",
+      "codigo": "202420154"
     },
     {
-      "nombre": "Nombre Apellido",
-      "codigo": "CODIGO UTEC"
+      "nombre": "Adriana Celeste",
+      "codigo": "202420155"
     },
     {
-      "nombre": "Nombre Apellido",
-      "codigo": "CODIGO UTEC"
+      "nombre": "Celeste Sevillano",
+      "codigo": "202310146"
     }
   ]
 }

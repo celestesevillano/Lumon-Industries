@@ -6,9 +6,9 @@
 
 | Nombre | Código UTEC |
 |:-------|:------------|
-| Celeste Sevillano | COMPLETAR |
-| Adriana Alvarado | COMPLETAR |
-| COMPLETAR | COMPLETAR |
+| Adriana Alvarado | 202420154 |
+| Adriana Celeste | 202420155 |
+| Celeste Sevillano | 202310146 |
 
 **Producción:** COMPLETAR (URL de Vercel)
 
