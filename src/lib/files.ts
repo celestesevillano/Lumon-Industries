@@ -22,6 +22,9 @@ export interface FileSummary {
   rows?: number
   cols?: number
   progress?: unknown
+  refinedGroups?: number
+  totalGroups?: number
+  mistakes?: number
 }
 
 export interface FileDetail extends FileSummary {
@@ -60,8 +63,9 @@ export function normalizeList(raw: unknown, pageSize: number): FileList {
 
 export async function listFiles(query: FileQuery, signal: AbortSignal): Promise<FileList> {
   const p = new URLSearchParams()
-  p.set('page', String(query.page))
-  p.set('pageSize', String(query.pageSize))
+  // La URL de la app cuenta páginas desde 1; la API responde `page` desde 0.
+  p.set('page', String(query.page - 1))
+  p.set('size', String(query.pageSize))
   if (query.status) p.set('status', query.status)
   if (query.q) p.set('q', query.q)
   if (query.sort) p.set('sort', query.sort)
@@ -71,22 +75,17 @@ export async function listFiles(query: FileQuery, signal: AbortSignal): Promise<
 export const getFile = (id: string, signal?: AbortSignal) => api<FileDetail>(`/files/${id}`, { signal })
 export const getRules = (id: string, signal?: AbortSignal) => api<Rules>(`/files/${id}/rules`, { signal })
 
-// Progreso de las cuatro cajas y total, leído de forma tolerante (formato por confirmar en Swagger).
+// Progreso real de la API: { WO, FC, DR, MA, overall } con fracciones de 0 a 1.
 export interface Progress { percent: number; perBin: Partial<Record<BinCode, number>> }
 export function readProgress(file: unknown): Progress {
-  const root = isObj(file) && isObj(file.progress) ? file.progress : isObj(file) ? file : {}
-  const perBinRaw = isObj(root.bins) ? root.bins : isObj(root.perBin) ? root.perBin : {}
+  const root = isObj(file) && isObj(file.progress) ? file.progress : {}
   const perBin: Partial<Record<BinCode, number>> = {}
   for (const b of BINS) {
-    const v = num(perBinRaw[b])
-    if (v !== undefined) perBin[b] = v
+    const v = num(root[b])
+    if (v !== undefined) perBin[b] = Math.round(v * 1000) / 10
   }
-  let percent = num(root.percent) ?? num(root.percentage) ?? 0
-  if (percent <= 1 && percent > 0 && root.percent !== undefined) percent *= 100
-  const refined = num(root.refinedCells) ?? num(root.refined)
-  const total = num(root.totalCells) ?? num(root.total)
-  if (percent === 0 && refined !== undefined && total) percent = (refined / total) * 100
-  return { percent: Math.min(100, Math.round(percent * 10) / 10), perBin }
+  const overall = num(root.overall) ?? 0
+  return { percent: Math.min(100, Math.round(overall * 1000) / 10), perBin }
 }
 
 export interface RefineResult { raw: unknown }
