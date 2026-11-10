@@ -10,7 +10,7 @@
 | Adriana Celeste | 202420155 |
 | Celeste Sevillano | 202310146 |
 
-**Producción:** COMPLETAR (URL de Vercel)
+**Producción:** https://lumon-industries-rouge.vercel.app
 
 **Cómo ejecutar**
 

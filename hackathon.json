@@ -1,7 +1,7 @@
 {
   "teamCode": "TEAM-045",
   "teamName": "Nombre de la cuadrilla",
-  "deployUrl": "https://",
+  "deployUrl": "https://lumon-industries-rouge.vercel.app",
   "storageProvider": "SUPABASE | CLOUDINARY",
   "integrantes": [
     {
