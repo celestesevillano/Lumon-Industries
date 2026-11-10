@@ -1,11 +1,20 @@
 {
-  "teamCode": "TEAM-000",
+  "teamCode": "TEAM-045",
   "teamName": "Nombre de la cuadrilla",
   "deployUrl": "https://",
   "storageProvider": "SUPABASE | CLOUDINARY",
   "integrantes": [
-    { "nombre": "Nombre Apellido", "codigo": "CODIGO UTEC" },
-    { "nombre": "Nombre Apellido", "codigo": "CODIGO UTEC" },
-    { "nombre": "Nombre Apellido", "codigo": "CODIGO UTEC" }
+    {
+      "nombre": "Nombre Apellido",
+      "codigo": "CODIGO UTEC"
+    },
+    {
+      "nombre": "Nombre Apellido",
+      "codigo": "CODIGO UTEC"
+    },
+    {
+      "nombre": "Nombre Apellido",
+      "codigo": "CODIGO UTEC"
+    }
   ]
 }
