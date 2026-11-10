@@ -74,10 +74,11 @@ export function refresh(): Promise<boolean> {
 export interface RequestOptions extends Omit<RequestInit, 'body'> {
   body?: unknown
   auth?: boolean
+  onHeaders?: (h: Headers) => void // para leer cabeceras de una respuesta exitosa (ETag)
 }
 
 export async function api<T>(path: string, opts: RequestOptions = {}, retried = false): Promise<T> {
-  const { body, auth = true, headers, ...rest } = opts
+  const { body, auth = true, headers, onHeaders, ...rest } = opts
   const h = new Headers(headers)
   h.set('X-Lumon-Build', __LUMON_BUILD__)
   if (body !== undefined && !(body instanceof FormData)) h.set('Content-Type', 'application/json')
@@ -87,6 +88,7 @@ export async function api<T>(path: string, opts: RequestOptions = {}, retried = 
     headers: h,
     body: body === undefined ? undefined : body instanceof FormData ? body : JSON.stringify(body),
   })
+  if (res.ok) onHeaders?.(res.headers)
   if (res.ok) return res.status === 204 ? (undefined as T) : ((await res.json()) as T)
 
   const err = new ApiError(
