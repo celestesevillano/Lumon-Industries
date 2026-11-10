@@ -270,7 +270,7 @@ export default function RefinePage() {
           <div className="h-3 rounded bg-gray-200" role="progressbar" aria-valuenow={progress.percent} aria-valuemin={0} aria-valuemax={100} aria-label="Progreso del archivo">
             <div className="h-3 rounded bg-emerald-600" style={{ width: `${progress.percent}%` }} />
           </div>
-          <span className="text-xs">{progress.percent}% refinado</span>
+          <span className="text-xs">{progress.percent}% refinado{file.totalGroups !== undefined ? ` · ${file.refinedGroups ?? 0}/${file.totalGroups} grupos` : ''}{file.mistakes ? ` · ${file.mistakes} errores` : ''}</span>
         </div>
       </header>
 
@@ -373,7 +373,7 @@ export default function RefinePage() {
                   className={`rounded border-2 p-3 text-left disabled:opacity-50 ${suggested === b ? 'border-fuchsia-600 ring-2 ring-fuchsia-300' : 'border-gray-300'} ${drag ? 'hover:bg-fuchsia-50' : ''}`}
                 >
                   <span className="block font-bold">{b} <span className="text-xs font-normal text-gray-500">({i + 1})</span></span>
-                  <span className="text-xs">{done !== undefined ? `${done} refinadas` : 'Enviar aquí'}</span>
+                  <span className="text-xs">{done !== undefined ? `${done}% refinado` : 'Enviar aquí'}</span>
                 </button>
               )
             })}

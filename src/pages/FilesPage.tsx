@@ -4,8 +4,7 @@ import { ApiError } from '../lib/api'
 import { listFiles, readProgress, type FileList, type FileQuery } from '../lib/files'
 
 const PAGE_SIZES = [10, 20, 50]
-// Valores de estado por confirmar en Swagger; la UI no depende de que coincidan con los del servidor.
-const STATUSES = ['PENDING', 'IN_PROGRESS', 'COMPLETED']
+const STATUSES = ['ACTIVE', 'COMPLETE']
 const SORTS: { value: string; label: string }[] = [
   { value: '', label: 'Predeterminado' },
   { value: 'name', label: 'Nombre (A-Z)' },
@@ -123,7 +122,7 @@ export default function FilesPage() {
               <div>
                 <Link className="font-semibold underline" to={`/files/${f.id}/refine`}>{f.name ?? `Archivo ${f.id}`}</Link>
                 <p className="text-sm text-gray-600">
-                  {f.status ?? '—'}{f.rows && f.cols ? ` · ${f.rows}×${f.cols}` : ''}
+                  {f.status ?? '—'}{f.rows && f.cols ? ` · ${f.rows}×${f.cols}` : ''}{f.totalGroups !== undefined ? ` · ${f.refinedGroups ?? 0}/${f.totalGroups} grupos` : ''}
                 </p>
               </div>
               <div className="w-32" aria-label={`Progreso ${p.percent}%`}>
