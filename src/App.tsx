@@ -8,6 +8,7 @@ import NotFound from './pages/NotFound'
 
 // La grilla (CP2) va en un chunk aparte: no cuenta en los 180 KB de /login.
 const FilesPage = lazy(() => import('./pages/FilesPage'))
+const RefinePage = lazy(() => import('./pages/RefinePage'))
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
           <Route element={<PrivateRoute />}>
             <Route path="/estado" element={<EstadoPage />} />
             <Route path="/files" element={<FilesPage />} />
+            <Route path="/files/:id/refine" element={<RefinePage />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
